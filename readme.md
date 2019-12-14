@@ -1,5 +1,9 @@
 # Microservices With Spring Cloud Consul Demo Project [![Twitter](https://img.shields.io/twitter/follow/piotr_minkowski.svg?style=social&logo=twitter&label=Follow%20Me)](https://twitter.com/piotr_minkowski)
-
+```
+## This project is a revision of the original demo project by piotr_minkowski. New features added include: 
+- Keycloak as the OAuth2 server and OIDC provider to enable security
+- Spring Cloud Gateway as OAuth2 resource server
+```
 In this project I'm demonstrating you how to use Hashicorp's **Consul** as a discovery and configuration server with [Spring Cloud Consul](https://spring.io/projects/spring-cloud-consul) and other Spring Cloud projects for building microservice-based architecture.
 
 ## Getting Started
