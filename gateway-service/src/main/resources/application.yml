@@ -1,0 +1,74 @@
+spring:  
+  application:
+    name: myriad-gateway
+
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8180/auth/realms/myriad
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: myriad-gateway
+            client-secret: [changeme]      
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8180/auth/realms/myriad/protocol/openid-connect/certs 
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: account-service
+          uri: lb://account-service
+          predicates:
+            - Path=/api/v1/accounts/**
+          filters:
+            - RewritePath=/api/v1/(?<path>.*), /$\{path}
+        - id: customer-service
+          uri: lb://customer-service
+          predicates:
+            - Path=/api/v1/customers/**
+          filters:
+            - RewritePath=/api/v1/(?<path>.*), /$\{path}
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/v1/orders/**
+          filters:
+            - RewritePath=/api/v1/(?<path>.*), /$\{path}
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/api/v1/products/**
+          filters:
+            - RewritePath=/api/v1/(?<path>.*), /$\{path}
+
+keycloak:
+  auth-server-url: https://keycloak-test.xinongtech.com
+  realm: myriad
+  ssl-required: external
+  public-client: true
+  resource: myriad-gateway
+  
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG      
+        cloud.gateway: DEBUG
+        http.server.reactive: DEBUG
+        web.reactive: DEBUG
+    
+management:
+  security:
+    enabled: false
+  health:
+    consul:
+      enabled: true
+  endpoint:
+    health:
+      show-details: ALWAYS

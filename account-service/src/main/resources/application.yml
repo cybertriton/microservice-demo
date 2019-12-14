@@ -1,0 +1,30 @@
+spring:  
+  application:
+    name: account-service
+  cloud:
+    consul:
+      host: 192.168.99.100
+      port: 8500
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8180/auth/realms/myriad/protocol/openid-connect/certs
+          user-name-attribute: preferred_username
+  output.ansi.enabled: ALWAYS
+
+logging:
+  level:
+    org.springframework: DEBUG
+    io.chainmind: DEBUG
+
+management:
+  security:
+    enabled: false
+  health:
+    consul:
+      enabled: true
+  endpoint:
+    health:
+      show-details: ALWAYS
+

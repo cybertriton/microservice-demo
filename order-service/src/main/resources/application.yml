@@ -1,0 +1,29 @@
+spring:  
+  application:
+    name: order-service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8180/auth/realms/myriad/protocol/openid-connect/certs
+          user-name-attribute: preferred_username
+
+logging:
+  file: logs/order.log
+  level:
+#    com.netflix: DEBUG
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+  pattern:
+#    console: "%d{HH:mm:ss.SSS} %-5level %msg%n"
+    file: "%d{HH:mm:ss.SSS} %-5level %msg%n"
+    
+management:
+  security:
+    enabled: false
+  health:
+    consul:
+      enabled: true
+  endpoint:
+    health:
+      show-details: ALWAYS
+    

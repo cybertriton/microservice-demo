@@ -1,0 +1,46 @@
+spring:  
+  application:
+    name: customer-service   
+  cloud:    
+    consul:
+      host: 192.168.99.100
+      port: 8500
+    loadbalancer:
+      ribbon:
+        enabled: false      
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8180/auth/realms/myriad/protocol/openid-connect/certs
+          user-name-attribute: preferred_username
+
+feign:
+  oauth2:
+    enabled: true
+  okhttp:
+    enabled: true
+  hystrix:
+    enabled: false
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+                
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG 
+    io.chainmind.myriad.customer: DEBUG
+    
+management:
+  security:
+    enabled: false
+  health:
+    consul:
+      enabled: true
+  endpoint:
+    health:
+      show-details: ALWAYS
+    shutdown: enabled
+    
