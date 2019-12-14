@@ -35,7 +35,6 @@
 		<module>customer-service</module>
 		<module>product-service</module>
 		<module>gateway-service</module>
-		<module>voucher-service</module>
 	</modules>
 
 	<repositories>
